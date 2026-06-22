@@ -26,7 +26,7 @@ Key insight from this journey: The "Discount Trap" — products discounted above
 Tools used: Python, Pandas, NumPy, SciPy, Matplotlib, Seaborn, SQLite, HTML/CSS/JavaScript, GitHub.
 
 Check out my full portfolio:
-https://github.com/harshsinghps57-spec/harshsinghps57-DataAnalyst-Internship-Portfolio
+https://github.com/harshsinghps57-spec/HarshSingh-DataAnalyst-Internship-Portfolio
 
 Thank you ApexPlanet Software Pvt. Ltd. for this incredible learning opportunity!
 
