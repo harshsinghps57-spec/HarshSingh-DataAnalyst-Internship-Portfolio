@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Harsh Singh — Data Analyst Internship Portfolio. A complete end-to-end data analytics journey covering data wrangling, EDA, dashboards, statistical validation and storytelling.">
+<title>Harsh Singh | Data Analyst Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary: #7C3AED;
+  --primary-light: #A78BFA;
+  --secondary: #06B6D4;
+  --accent: #10B981;
+  --warning: #F59E0B;
+  --danger: #EF4444;
+  --dark: #060612;
+  --dark2: #0D0D1F;
+  --card: #11112A;
+  --card2: #161633;
+  --border: rgba(124,58,237,0.18);
+  --text: #E8E8F8;
+  --muted: #8888BB;
+  --grad1: linear-gradient(135deg,#7C3AED,#06B6D4);
+  --grad2: linear-gradient(135deg,#10B981,#06B6D4);
+  --grad3: linear-gradient(135deg,#F59E0B,#EF4444);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--dark);color:var(--text);font-family:'Outfit',sans-serif;line-height:1.7;overflow-x:hidden;}
+
+/* ── Noise overlay ── */
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:0;}
+
+/* ── Nav ── */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:14px 40px;display:flex;align-items:center;justify-content:space-between;background:rgba(6,6,18,0.8);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);transition:all 0.3s;}
+.nav-logo{font-weight:900;font-size:1.1rem;background:var(--grad1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.nav-links{display:flex;gap:28px;list-style:none;}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:0.9rem;font-weight:500;transition:color 0.2s;}
+.nav-links a:hover{color:var(--text);}
+.nav-cta{background:var(--grad1);color:white;padding:8px 20px;border-radius:30px;font-size:0.85rem;font-weight:600;text-decoration:none;transition:opacity 0.2s,transform 0.2s;}
+.nav-cta:hover{opacity:0.85;transform:translateY(-1px);}
+
+/* ── Hero ── */
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:100px 24px 60px;position:relative;overflow:hidden;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(124,58,237,0.12) 0%,transparent 70%),radial-gradient(ellipse 60% 50% at 80% 80%,rgba(6,182,212,0.08) 0%,transparent 60%),var(--dark);}
+.hero-glow{position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(124,58,237,0.15) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);animation:pulse 4s ease-in-out infinite;}
+@keyframes pulse{0%,100%{transform:translate(-50%,-50%) scale(1);}50%{transform:translate(-50%,-50%) scale(1.1);}}
+.hero-content{position:relative;z-index:1;max-width:850px;}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(124,58,237,0.12);border:1px solid rgba(124,58,237,0.3);padding:6px 18px;border-radius:30px;font-size:0.8rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--primary-light);margin-bottom:28px;}
+.hero-badge::before{content:'';width:8px;height:8px;background:var(--accent);border-radius:50%;animation:blink 1.5s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.3;}}
+.hero h1{font-size:clamp(3rem,8vw,6.5rem);font-weight:900;line-height:1.0;margin-bottom:12px;letter-spacing:-2px;}
+.hero h1 span{background:var(--grad1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero-role{font-size:1.4rem;color:var(--muted);font-weight:400;margin-bottom:28px;}
+.hero-role strong{color:var(--secondary);font-weight:600;}
+.hero-desc{font-size:1.05rem;color:var(--muted);max-width:580px;margin:0 auto 48px;line-height:1.8;}
+.hero-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:60px;}
+.btn-primary{background:var(--grad1);color:white;padding:14px 32px;border-radius:50px;font-weight:700;font-size:1rem;text-decoration:none;transition:transform 0.2s,box-shadow 0.2s;box-shadow:0 8px 32px rgba(124,58,237,0.35);}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 16px 48px rgba(124,58,237,0.45);}
+.btn-secondary{background:transparent;color:var(--text);padding:14px 32px;border-radius:50px;font-weight:600;font-size:1rem;text-decoration:none;border:1px solid var(--border);transition:all 0.2s;}
+.btn-secondary:hover{border-color:var(--primary-light);color:var(--primary-light);}
+.hero-stats{display:flex;gap:40px;justify-content:center;flex-wrap:wrap;}
+.hero-stat .val{display:block;font-size:2.8rem;font-weight:900;background:var(--grad1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;}
+.hero-stat .lbl{font-size:0.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;margin-top:4px;}
+
+/* ── Sections ── */
+section{padding:100px 24px;}
+.container{max-width:1200px;margin:0 auto;}
+.section-label{font-size:0.75rem;letter-spacing:3px;text-transform:uppercase;font-weight:600;color:var(--primary-light);margin-bottom:12px;}
+.section-title{font-size:clamp(2rem,4vw,3.2rem);font-weight:800;line-height:1.15;margin-bottom:16px;}
+.section-desc{color:var(--muted);font-size:1.05rem;max-width:560px;}
+.section-header{margin-bottom:64px;}
+.divider{width:50px;height:4px;background:var(--grad1);border-radius:2px;margin-top:20px;}
+
+/* ── Timeline / Journey ── */
+.journey{background:radial-gradient(ellipse 70% 50% at 50% 50%,rgba(124,58,237,0.06) 0%,transparent 70%),var(--dark2);}
+.timeline{position:relative;max-width:900px;margin:0 auto;}
+.timeline::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--primary),var(--secondary),var(--accent));transform:translateX(-50%);}
+.tl-item{display:flex;gap:48px;margin-bottom:64px;position:relative;align-items:flex-start;}
+.tl-item:nth-child(even){flex-direction:row-reverse;}
+.tl-item:nth-child(even) .tl-content{text-align:right;}
+.tl-dot{position:absolute;left:50%;top:24px;transform:translateX(-50%);width:18px;height:18px;border-radius:50%;border:3px solid var(--dark2);z-index:2;flex-shrink:0;}
+.tl-spacer{flex:1;}
+.tl-content{flex:1;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:28px;transition:transform 0.3s,box-shadow 0.3s,border-color 0.3s;}
+.tl-content:hover{transform:translateY(-4px);box-shadow:0 20px 60px rgba(124,58,237,0.15);border-color:rgba(124,58,237,0.4);}
+.tl-week{font-size:0.72rem;letter-spacing:2px;text-transform:uppercase;font-weight:700;margin-bottom:8px;}
+.tl-title{font-size:1.25rem;font-weight:700;margin-bottom:10px;}
+.tl-desc{font-size:0.9rem;color:var(--muted);line-height:1.7;margin-bottom:16px;}
+.tl-tags{display:flex;gap:8px;flex-wrap:wrap;}
+.tl-item:nth-child(even) .tl-tags{justify-content:flex-end;}
+.tag{padding:4px 12px;border-radius:20px;font-size:0.75rem;font-weight:600;border:1px solid;}
+.tag-purple{background:rgba(124,58,237,0.12);border-color:rgba(124,58,237,0.3);color:var(--primary-light);}
+.tag-cyan{background:rgba(6,182,212,0.1);border-color:rgba(6,182,212,0.3);color:var(--secondary);}
+.tag-green{background:rgba(16,185,129,0.1);border-color:rgba(16,185,129,0.3);color:var(--accent);}
+.tag-yellow{background:rgba(245,158,11,0.1);border-color:rgba(245,158,11,0.3);color:var(--warning);}
+.tl-link{display:inline-flex;align-items:center;gap:6px;color:var(--primary-light);font-size:0.85rem;font-weight:600;text-decoration:none;margin-top:12px;transition:gap 0.2s;}
+.tl-link:hover{gap:10px;}
+.tl-link::after{content:'→';}
+
+/* ── Projects Grid ── */
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:28px;}
+.project-card{background:var(--card);border:1px solid var(--border);border-radius:22px;overflow:hidden;transition:transform 0.3s,box-shadow 0.3s,border-color 0.3s;display:flex;flex-direction:column;}
+.project-card:hover{transform:translateY(-6px);box-shadow:0 24px 64px rgba(124,58,237,0.18);border-color:rgba(124,58,237,0.45);}
+.project-card-header{padding:28px 28px 20px;position:relative;}
+.project-num{position:absolute;top:20px;right:20px;font-size:4rem;font-weight:900;color:rgba(255,255,255,0.03);line-height:1;}
+.project-week-badge{display:inline-block;padding:4px 14px;border-radius:20px;font-size:0.72rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:14px;}
+.project-icon{font-size:2.4rem;margin-bottom:14px;display:block;}
+.project-title{font-size:1.2rem;font-weight:700;margin-bottom:8px;line-height:1.3;}
+.project-desc{font-size:0.88rem;color:var(--muted);line-height:1.65;}
+.project-card-body{padding:0 28px 28px;flex:1;display:flex;flex-direction:column;}
+.project-skills{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0;}
+.project-card-footer{margin-top:auto;padding-top:20px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.project-link{display:inline-flex;align-items:center;gap:6px;background:rgba(124,58,237,0.12);border:1px solid rgba(124,58,237,0.25);color:var(--primary-light);padding:8px 18px;border-radius:30px;font-size:0.83rem;font-weight:600;text-decoration:none;transition:all 0.2s;}
+.project-link:hover{background:rgba(124,58,237,0.25);border-color:var(--primary-light);}
+.project-link svg{width:14px;height:14px;}
+
+/* ── Skills ── */
+.skills-section{background:var(--dark2);}
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;}
+.skill-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:28px;transition:transform 0.2s,box-shadow 0.2s;}
+.skill-card:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(124,58,237,0.12);}
+.skill-category{font-size:0.72rem;letter-spacing:2px;text-transform:uppercase;font-weight:700;margin-bottom:16px;}
+.skill-item{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.skill-name{font-size:0.88rem;color:var(--muted);}
+.skill-bar-wrap{width:100px;height:6px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden;}
+.skill-bar{height:100%;border-radius:3px;transition:width 1.5s ease;}
+
+/* ── Learnings ── */
+.learnings-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;}
+.learning-card{background:var(--card2);border:1px solid var(--border);border-radius:18px;padding:28px;position:relative;overflow:hidden;transition:transform 0.2s;}
+.learning-card:hover{transform:translateY(-3px);}
+.learning-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+.learning-icon{font-size:2rem;margin-bottom:14px;display:block;}
+.learning-title{font-size:1.05rem;font-weight:700;margin-bottom:10px;}
+.learning-desc{font-size:0.88rem;color:var(--muted);line-height:1.65;}
+
+/* ── LinkedIn Section ── */
+.linkedin-section{background:radial-gradient(ellipse 60% 70% at 50% 100%,rgba(6,182,212,0.06) 0%,transparent 60%),var(--dark);}
+.linkedin-card{background:var(--card);border:1px solid var(--border);border-radius:24px;padding:40px;max-width:780px;margin:0 auto;position:relative;overflow:hidden;}
+.linkedin-card::before{content:'';position:absolute;top:-50px;right:-50px;width:200px;height:200px;background:radial-gradient(circle,rgba(10,102,194,0.15) 0%,transparent 70%);}
+.linkedin-header{display:flex;align-items:center;gap:16px;margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid var(--border);}
+.linkedin-avatar{width:52px;height:52px;border-radius:50%;background:var(--grad1);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.2rem;flex-shrink:0;}
+.linkedin-name{font-weight:700;font-size:1rem;}
+.linkedin-title-sub{font-size:0.82rem;color:var(--muted);}
+.linkedin-badge{background:#0A66C2;color:white;padding:3px 12px;border-radius:20px;font-size:0.72rem;font-weight:600;margin-left:auto;}
+.linkedin-post{font-size:0.93rem;color:var(--text);line-height:1.85;white-space:pre-line;}
+.linkedin-hashtags{margin-top:20px;display:flex;flex-wrap:wrap;gap:8px;}
+.hashtag{color:#0A66C2;font-size:0.88rem;font-weight:500;}
+
+/* ── CTA ── */
+.cta-section{text-align:center;background:radial-gradient(ellipse 80% 60% at 50% 50%,rgba(124,58,237,0.1) 0%,transparent 70%),var(--dark2);}
+.cta-title{font-size:clamp(2rem,5vw,3.5rem);font-weight:900;margin-bottom:20px;line-height:1.15;}
+.cta-title span{background:var(--grad1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+
+/* ── Footer ── */
+footer{background:var(--dark);border-top:1px solid var(--border);padding:40px 24px;text-align:center;}
+.footer-links{display:flex;gap:24px;justify-content:center;margin-bottom:20px;flex-wrap:wrap;}
+.footer-links a{color:var(--muted);text-decoration:none;font-size:0.88rem;transition:color 0.2s;}
+.footer-links a:hover{color:var(--text);}
+.footer-copy{font-size:0.82rem;color:var(--muted);}
+
+/* ── Animations ── */
+.fade-up{opacity:0;transform:translateY(40px);transition:opacity 0.7s ease,transform 0.7s ease;}
+.fade-up.visible{opacity:1;transform:translateY(0);}
+
+@media(max-width:768px){
+  .nav{padding:12px 20px;}
+  .nav-links{display:none;}
+  .timeline::before{left:20px;}
+  .tl-item,.tl-item:nth-child(even){flex-direction:column;padding-left:48px;}
+  .tl-dot{left:20px;}
+  .tl-spacer{display:none;}
+  .tl-item:nth-child(even) .tl-content,.tl-item:nth-child(even) .tl-tags{text-align:left;justify-content:flex-start;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="nav-logo">HS Portfolio</div>
+  <ul class="nav-links">
+    <li><a href="#journey">Journey</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#learnings">Learnings</a></li>
+    <li><a href="#linkedin">LinkedIn</a></li>
+  </ul>
+  <a href="https://github.com/harshsinghps57-spec" class="nav-cta" target="_blank">GitHub Profile</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-glow"></div>
+  <div class="hero-content fade-up">
+    <div class="hero-badge">Data Analytics Internship — ApexPlanet Software Pvt. Ltd.</div>
+    <h1>Harsh<br><span>Singh</span></h1>
+    <p class="hero-role">Aspiring <strong>Data Analyst</strong> · Python · SQL · Visualization</p>
+    <p class="hero-desc">A 5-week end-to-end data analytics internship journey — from raw data wrangling to statistical storytelling and professional portfolio finalization.</p>
+    <div class="hero-btns">
+      <a href="#projects" class="btn-primary">View Projects</a>
+      <a href="https://github.com/harshsinghps57-spec" class="btn-secondary" target="_blank">GitHub Profile</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><span class="val">5</span><span class="lbl">Weeks</span></div>
+      <div class="hero-stat"><span class="val">4</span><span class="lbl">Repositories</span></div>
+      <div class="hero-stat"><span class="val">9994</span><span class="lbl">Rows Analysed</span></div>
+      <div class="hero-stat"><span class="val">20+</span><span class="lbl">Skills Gained</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- JOURNEY TIMELINE -->
+<section class="journey" id="journey">
+  <div class="container">
+    <div class="section-header fade-up">
+      <div class="section-label">My Journey</div>
+      <h2 class="section-title">5 Weeks, 5 Milestones</h2>
+      <p class="section-desc">A structured internship covering the full data analytics lifecycle from raw data to business insights.</p>
+      <div class="divider"></div>
+    </div>
+    <div class="timeline">
+
+      <div class="tl-item fade-up">
+        <div class="tl-spacer"></div>
+        <div class="tl-dot" style="background:#7C3AED"></div>
+        <div class="tl-content">
+          <div class="tl-week" style="color:#A78BFA">Week 1</div>
+          <div class="tl-title">Data Immersion & Wrangling</div>
+          <div class="tl-desc">Loaded and explored the Superstore dataset. Handled missing values, fixed data types, removed duplicates, engineered new features (Profit Margin, Order-to-Ship Days), and generated a clean analysis-ready CSV.</div>
+          <div class="tl-tags">
+            <span class="tag tag-purple">Python</span>
+            <span class="tag tag-purple">Pandas</span>
+            <span class="tag tag-purple">Data Cleaning</span>
+            <span class="tag tag-cyan">Feature Engineering</span>
+          </div>
+          <a href="https://github.com/harshsinghps57-spec/Data-Immersion-Wrangling" class="tl-link" target="_blank">View Repository</a>
+        </div>
+      </div>
+
+      <div class="tl-item fade-up">
+        <div class="tl-content">
+          <div class="tl-week" style="color:#06B6D4">Week 2</div>
+          <div class="tl-title">Exploratory Data Analysis & Business Intelligence</div>
+          <div class="tl-desc">Performed univariate and multivariate analysis, built an SQLite database with 6 business SQL queries, and created a premium interactive HTML dashboard revealing segment, region and category insights.</div>
+          <div class="tl-tags">
+            <span class="tag tag-cyan">EDA</span>
+            <span class="tag tag-cyan">SQL</span>
+            <span class="tag tag-green">Seaborn</span>
+            <span class="tag tag-green">Dashboard</span>
+          </div>
+          <a href="https://github.com/harshsinghps57-spec/Exploratory-Data-Analysis-and-Business-Intelligence" class="tl-link" target="_blank">View Repository</a>
+        </div>
+        <div class="tl-dot" style="background:#06B6D4"></div>
+        <div class="tl-spacer"></div>
+      </div>
+
+      <div class="tl-item fade-up">
+        <div class="tl-spacer"></div>
+        <div class="tl-dot" style="background:#10B981"></div>
+        <div class="tl-content">
+          <div class="tl-week" style="color:#10B981">Week 3</div>
+          <div class="tl-title">Deep Dive Analysis & Interactive Dashboard</div>
+          <div class="tl-desc">Built advanced cohort analysis, customer segmentation (RFM), time-series decomposition, and an interactive multi-page HTML dashboard with live filtering, animated charts, and executive KPI summaries.</div>
+          <div class="tl-tags">
+            <span class="tag tag-green">Advanced Analytics</span>
+            <span class="tag tag-green">RFM Segmentation</span>
+            <span class="tag tag-yellow">Interactive Dashboard</span>
+            <span class="tag tag-cyan">Time Series</span>
+          </div>
+          <a href="https://github.com/harshsinghps57-spec/Deep-Dive-Analysis-Interactive-Dashboard" class="tl-link" target="_blank">View Repository</a>
+        </div>
+      </div>
+
+      <div class="tl-item fade-up">
+        <div class="tl-content">
+          <div class="tl-week" style="color:#F59E0B">Week 4</div>
+          <div class="tl-title">Data Storytelling & Statistical Validation</div>
+          <div class="tl-desc">Crafted 5 data narratives backed by rigorous hypothesis testing — Shapiro-Wilk, T-Test, ANOVA, Chi-Square, and Pearson Correlation. Produced an interactive HTML story presentation with dark-mode charts.</div>
+          <div class="tl-tags">
+            <span class="tag tag-yellow">Hypothesis Testing</span>
+            <span class="tag tag-yellow">SciPy</span>
+            <span class="tag tag-purple">Storytelling</span>
+            <span class="tag tag-cyan">Statistical Validation</span>
+          </div>
+          <a href="https://github.com/harshsinghps57-spec/Data-Storytelling-and-Statistical-Validation" class="tl-link" target="_blank">View Repository</a>
+        </div>
+        <div class="tl-dot" style="background:#F59E0B"></div>
+        <div class="tl-spacer"></div>
+      </div>
+
+      <div class="tl-item fade-up">
+        <div class="tl-spacer"></div>
+        <div class="tl-dot" style="background:linear-gradient(135deg,#7C3AED,#06B6D4)"></div>
+        <div class="tl-content" style="border-color:rgba(124,58,237,0.5);background:linear-gradient(135deg,rgba(124,58,237,0.08),rgba(6,182,212,0.05));">
+          <div class="tl-week" style="color:#A78BFA">Week 5</div>
+          <div class="tl-title">Capstone Integration & Portfolio Finalization ⭐</div>
+          <div class="tl-desc">Consolidated all 4 weeks into this master portfolio. Built a GitHub Pages website, wrote a professional reflection, drafted a LinkedIn post, and created a final presentation deck summarising the entire internship.</div>
+          <div class="tl-tags">
+            <span class="tag tag-purple">Portfolio</span>
+            <span class="tag tag-cyan">GitHub Pages</span>
+            <span class="tag tag-green">Capstone</span>
+            <span class="tag tag-yellow">Professional Development</span>
+          </div>
+          <a href="https://github.com/harshsinghps57-spec/harshsinghps57-DataAnalyst-Internship-Portfolio" class="tl-link" target="_blank">View Repository</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="section-header fade-up">
+      <div class="section-label">All Projects</div>
+      <h2 class="section-title">Repository Showcase</h2>
+      <p class="section-desc">Four production-quality repositories covering every stage of the data analytics pipeline.</p>
+      <div class="divider"></div>
+    </div>
+    <div class="projects-grid">
+
+      <div class="project-card fade-up">
+        <div class="project-card-header">
+          <div class="project-num">01</div>
+          <span class="project-week-badge" style="background:rgba(124,58,237,0.15);color:#A78BFA;border:1px solid rgba(124,58,237,0.3);">Week 1</span>
+          <span class="project-icon">🧹</span>
+          <div class="project-title">Data Immersion & Wrangling</div>
+          <div class="project-desc">End-to-end data cleaning pipeline for the Superstore dataset — handling nulls, type fixes, deduplication and feature engineering.</div>
+        </div>
+        <div class="project-card-body">
+          <div class="project-skills">
+            <span class="tag tag-purple">Python</span>
+            <span class="tag tag-purple">Pandas</span>
+            <span class="tag tag-purple">NumPy</span>
+            <span class="tag tag-cyan">Data Cleaning</span>
+          </div>
+          <div class="project-card-footer">
+            <a href="https://github.com/harshsinghps57-spec/Data-Immersion-Wrangling" class="project-link" target="_blank">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+              GitHub Repo
+            </a>
+            <span style="font-size:0.78rem;color:var(--muted);">9,994 rows</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card fade-up">
+        <div class="project-card-header">
+          <div class="project-num">02</div>
+          <span class="project-week-badge" style="background:rgba(6,182,212,0.1);color:#06B6D4;border:1px solid rgba(6,182,212,0.3);">Week 2</span>
+          <span class="project-icon">📊</span>
+          <div class="project-title">EDA & Business Intelligence</div>
+          <div class="project-desc">Deep exploratory analysis with SQLite queries, statistical distributions, bivariate analysis and an interactive BI dashboard with live chart filtering.</div>
+        </div>
+        <div class="project-card-body">
+          <div class="project-skills">
+            <span class="tag tag-cyan">EDA</span>
+            <span class="tag tag-cyan">SQL</span>
+            <span class="tag tag-green">Seaborn</span>
+            <span class="tag tag-green">HTML Dashboard</span>
+          </div>
+          <div class="project-card-footer">
+            <a href="https://github.com/harshsinghps57-spec/Exploratory-Data-Analysis-and-Business-Intelligence" class="project-link" target="_blank">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+              GitHub Repo
+            </a>
+            <span style="font-size:0.78rem;color:var(--muted);">6 SQL queries</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card fade-up">
+        <div class="project-card-header">
+          <div class="project-num">03</div>
+          <span class="project-week-badge" style="background:rgba(16,185,129,0.1);color:#10B981;border:1px solid rgba(16,185,129,0.3);">Week 3</span>
+          <span class="project-icon">🎛️</span>
+          <div class="project-title">Deep Dive & Interactive Dashboard</div>
+          <div class="project-desc">Advanced analytics: RFM customer segmentation, cohort retention heatmaps, time-series decomposition, and a multi-page interactive dashboard with JavaScript-powered live filters.</div>
+        </div>
+        <div class="project-card-body">
+          <div class="project-skills">
+            <span class="tag tag-green">RFM Analysis</span>
+            <span class="tag tag-green">Cohort Analysis</span>
+            <span class="tag tag-cyan">JavaScript</span>
+            <span class="tag tag-yellow">Time Series</span>
+          </div>
+          <div class="project-card-footer">
+            <a href="https://github.com/harshsinghps57-spec/Deep-Dive-Analysis-Interactive-Dashboard" class="project-link" target="_blank">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+              GitHub Repo
+            </a>
+            <span style="font-size:0.78rem;color:var(--muted);">Multi-page dashboard</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card fade-up">
+        <div class="project-card-header">
+          <div class="project-num">04</div>
+          <span class="project-week-badge" style="background:rgba(245,158,11,0.1);color:#F59E0B;border:1px solid rgba(245,158,11,0.3);">Week 4</span>
+          <span class="project-icon">📈</span>
+          <div class="project-title">Data Storytelling & Statistical Validation</div>
+          <div class="project-desc">5 data-driven narratives validated by 4 statistical hypothesis tests (Shapiro-Wilk, T-Test, ANOVA, Chi-Square) and Pearson correlation analysis, with a premium HTML story presentation.</div>
+        </div>
+        <div class="project-card-body">
+          <div class="project-skills">
+            <span class="tag tag-yellow">SciPy</span>
+            <span class="tag tag-yellow">Hypothesis Testing</span>
+            <span class="tag tag-purple">Storytelling</span>
+            <span class="tag tag-cyan">Matplotlib</span>
+          </div>
+          <div class="project-card-footer">
+            <a href="https://github.com/harshsinghps57-spec/Data-Storytelling-and-Statistical-Validation" class="project-link" target="_blank">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+              GitHub Repo
+            </a>
+            <span style="font-size:0.78rem;color:var(--muted);">4 hypothesis tests</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="skills-section" id="skills">
+  <div class="container">
+    <div class="section-header fade-up">
+      <div class="section-label">Technical Skills</div>
+      <h2 class="section-title">Skills Demonstrated</h2>
+      <p class="section-desc">Hands-on skills developed and applied across all 5 weeks of the internship.</p>
+      <div class="divider"></div>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card fade-up">
+        <div class="skill-category" style="color:#A78BFA">Python & Libraries</div>
+        <div class="skill-item"><span class="skill-name">Python 3</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:90%;background:var(--grad1);"></div></div></div>
+        <div class="skill-item"><span class="skill-name">Pandas</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:88%;background:var(--grad1);"></div></div></div>
+        <div class="skill-item"><span class="skill-name">NumPy</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:80%;background:var(--grad1);"></div></div></div>
+        <div class="skill-item"><span class="skill-name">SciPy</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:75%;background:var(--grad1);"></div></div></div>
+      </div>
+      <div class="skill-card fade-up">
+        <div class="skill-category" style="color:#06B6D4">Data Visualization</div>
+        <div class="skill-item"><span class="skill-name">Matplotlib</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:88%;background:var(--grad2);"></div></div></div>
+        <div class="skill-item"><span class="skill-name">Seaborn</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:85%;background:var(--grad2);"></div></div></div>
+        <div class="skill-item"><span class="skill-name">HTML/CSS Dashboards</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:82%;background:var(--grad2);"></div></div></div>
+        <div class="skill-item"><span class="skill-name">JavaScript Charts</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:70%;background:var(--grad2);"></div></div></div>
+      </div>
+      <div class="skill-card fade-up">
+        <div class="skill-category" style="color:#10B981">Analytics & Statistics</div>
+        <div class="skill-item"><span class="skill-name">Exploratory Analysis</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:92%;background:linear-gradient(90deg,#10B981,#06B6D4);"></div></div></div>
+        <div class="skill-item"><span class="skill-name">Hypothesis Testing</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:78%;background:linear-gradient(90deg,#10B981,#06B6D4);"></div></div></div>
+        <div class="skill-item"><span class="skill-name">SQL & SQLite</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:80%;background:linear-gradient(90deg,#10B981,#06B6D4);"></div></div></div>
+        <div class="skill-item"><span class="skill-name">RFM Segmentation</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:72%;background:linear-gradient(90deg,#10B981,#06B6D4);"></div></div></div>
+      </div>
+      <div class="skill-card fade-up">
+        <div class="skill-category" style="color:#F59E0B">Professional Skills</div>
+        <div class="skill-item"><span class="skill-name">Data Storytelling</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:85%;background:var(--grad3);"></div></div></div>
+        <div class="skill-item"><span class="skill-name">GitHub / Version Control</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:78%;background:var(--grad3);"></div></div></div>
+        <div class="skill-item"><span class="skill-name">Business Intelligence</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:80%;background:var(--grad3);"></div></div></div>
+        <div class="skill-item"><span class="skill-name">Report Writing</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:82%;background:var(--grad3);"></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LEARNINGS -->
+<section id="learnings">
+  <div class="container">
+    <div class="section-header fade-up">
+      <div class="section-label">Key Learnings</div>
+      <h2 class="section-title">What I Learned</h2>
+      <p class="section-desc">Summarised technical and professional takeaways from 5 weeks of hands-on data analytics work.</p>
+      <div class="divider"></div>
+    </div>
+    <div class="learnings-grid">
+      <div class="learning-card fade-up" style="--c:#7C3AED">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:var(--grad1);"></div>
+        <span class="learning-icon">🧹</span>
+        <div class="learning-title">Data Quality is Everything</div>
+        <div class="learning-desc">Real-world data is messy. I learned that 80% of analytics time goes to cleaning and validating data. A clean dataset is the foundation of every trustworthy insight.</div>
+      </div>
+      <div class="learning-card fade-up">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:var(--grad2);"></div>
+        <span class="learning-icon">🔍</span>
+        <div class="learning-title">EDA Reveals Hidden Patterns</div>
+        <div class="learning-desc">Exploratory analysis on the Superstore dataset revealed that deep discounts consistently destroy profit margins — a finding invisible without systematic analysis of distributions and correlations.</div>
+      </div>
+      <div class="learning-card fade-up">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#10B981,#06B6D4);"></div>
+        <span class="learning-icon">📐</span>
+        <div class="learning-title">Statistics Validates Intuition</div>
+        <div class="learning-desc">Hypothesis tests (ANOVA, Chi-Square, T-Test) gave scientific rigour to visual observations. I learned that intuition must be verified with p-values before acting on business decisions.</div>
+      </div>
+      <div class="learning-card fade-up">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:var(--grad3);"></div>
+        <span class="learning-icon">📖</span>
+        <div class="learning-title">Data Needs a Story</div>
+        <div class="learning-desc">Numbers alone don't persuade stakeholders. Crafting narratives around data — The Discount Trap, Regional Disparity — makes insights memorable, actionable and impactful.</div>
+      </div>
+      <div class="learning-card fade-up">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:var(--grad1);"></div>
+        <span class="learning-icon">🎛️</span>
+        <div class="learning-title">Dashboards Enable Decisions</div>
+        <div class="learning-desc">Interactive dashboards with live filters empower non-technical stakeholders to explore data themselves. The best analysis is one that others can self-serve without asking the analyst.</div>
+      </div>
+      <div class="learning-card fade-up">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:var(--grad2);"></div>
+        <span class="learning-icon">🚀</span>
+        <div class="learning-title">Build, Ship, Iterate</div>
+        <div class="learning-desc">Weekly deliverables taught me the power of consistent output. Each week's work built on the previous, demonstrating how an analytics pipeline evolves from raw data to polished portfolio.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LINKEDIN POST -->
+<section class="linkedin-section" id="linkedin">
+  <div class="container">
+    <div class="section-header fade-up" style="text-align:center;margin-bottom:48px;">
+      <div class="section-label">Professional Reflection</div>
+      <h2 class="section-title">LinkedIn Post Draft</h2>
+      <p class="section-desc" style="margin:0 auto;">A summary of my internship experience for my professional network.</p>
+      <div class="divider" style="margin:20px auto 0;"></div>
+    </div>
+    <div class="linkedin-card fade-up">
+      <div class="linkedin-header">
+        <div class="linkedin-avatar">HS</div>
+        <div>
+          <div class="linkedin-name">Harsh Singh</div>
+          <div class="linkedin-title-sub">Data Analytics Intern · ApexPlanet Software Pvt. Ltd.</div>
+        </div>
+        <div class="linkedin-badge">LinkedIn</div>
+      </div>
+      <div class="linkedin-post">Excited to share that I have successfully completed my 5-week Data Analytics Internship at ApexPlanet Software Pvt. Ltd.!
+
+Here is what I built across 5 weeks:
+
+Week 1 — Data Immersion & Wrangling
+Cleaned and prepared a 9,994-row Superstore dataset. Handled missing values, fixed data types, removed duplicates and engineered new features (Profit Margin, Order-to-Ship Days).
+
+Week 2 — Exploratory Data Analysis & Business Intelligence
+Performed deep EDA with statistical distributions, built an SQLite database with SQL queries, and created an interactive HTML BI dashboard with segment and regional insights.
+
+Week 3 — Advanced Analytics & Interactive Dashboard
+Built RFM customer segmentation, cohort retention analysis, time-series decomposition, and a multi-page interactive dashboard with live JavaScript filters and animated charts.
+
+Week 4 — Data Storytelling & Statistical Validation
+Crafted 5 data narratives validated by hypothesis testing — Shapiro-Wilk, T-Test (segments), ANOVA (regions), Chi-Square (shipping) and Pearson Correlations — with a premium story presentation.
+
+Week 5 — Capstone Portfolio Finalization
+Consolidated everything into a professional GitHub portfolio with a GitHub Pages website linking all 4 repositories.
+
+Key insight from this journey: The "Discount Trap" — products discounted above 40% almost always generate losses. A finding that went from raw CSV to statistically validated business recommendation.
+
+Tools used: Python, Pandas, NumPy, SciPy, Matplotlib, Seaborn, SQLite, HTML/CSS/JavaScript, GitHub.
+
+Check out my full portfolio:
+https://github.com/harshsinghps57-spec/harshsinghps57-DataAnalyst-Internship-Portfolio
+
+Thank you ApexPlanet Software Pvt. Ltd. for this incredible learning opportunity!</div>
+      <div class="linkedin-hashtags">
+        <span class="hashtag">#DataAnalytics</span>
+        <span class="hashtag">#Python</span>
+        <span class="hashtag">#DataScience</span>
+        <span class="hashtag">#Internship</span>
+        <span class="hashtag">#ApexPlanet</span>
+        <span class="hashtag">#EDA</span>
+        <span class="hashtag">#MachineLearning</span>
+        <span class="hashtag">#GitHub</span>
+        <span class="hashtag">#DataVisualization</span>
+        <span class="hashtag">#SQL</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container" style="max-width:700px;text-align:center;">
+    <div class="cta-title fade-up">Ready to see the<br><span>full portfolio?</span></div>
+    <p class="fade-up" style="color:var(--muted);font-size:1.05rem;margin-bottom:40px;">All 4 repositories are live on GitHub with full source code, datasets, charts, SQL queries, and interactive dashboards.</p>
+    <div class="fade-up" style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+      <a href="https://github.com/harshsinghps57-spec" class="btn-primary" target="_blank">Visit GitHub Profile</a>
+      <a href="https://github.com/harshsinghps57-spec/harshsinghps57-DataAnalyst-Internship-Portfolio" class="btn-secondary" target="_blank">Master Repository</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-links">
+    <a href="https://github.com/harshsinghps57-spec" target="_blank">GitHub</a>
+    <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
+    <a href="#linkedin">LinkedIn Post</a>
+  </div>
+  <div class="footer-copy">Built with passion during a 5-week Data Analytics Internship at ApexPlanet Software Pvt. Ltd. &copy; 2026 Harsh Singh</div>
+</footer>
+
+<script>
+// Scroll animations
+const fadeEls = document.querySelectorAll('.fade-up');
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 60);
+      obs.unobserve(e.target);
+    }
+  });
+}, {threshold: 0.1});
+fadeEls.forEach(el => obs.observe(el));
+
+// Skill bar animation
+const skillBars = document.querySelectorAll('.skill-bar');
+const barObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const target = e.target.style.width;
+      e.target.style.width = '0';
+      setTimeout(() => { e.target.style.width = target; }, 200);
+      barObs.unobserve(e.target);
+    }
+  });
+}, {threshold: 0.3});
+skillBars.forEach(b => barObs.observe(b));
+</script>
+</body>
+</html>
