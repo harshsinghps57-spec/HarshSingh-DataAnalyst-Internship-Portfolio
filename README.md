@@ -9,7 +9,7 @@
 
 **A complete, end-to-end Data Analytics Internship — from raw data to professional portfolio.**
 
-[🌐 View Portfolio Website](https://harshsinghps57-spec.github.io/harshsinghps57-DataAnalyst-Internship-Portfolio) · [📊 GitHub Profile](https://github.com/harshsinghps57-spec)
+[🌐 View Portfolio Website](https://harshsinghps57-spec.github.io/HarshSingh-DataAnalyst-Internship-Portfolio) · [📊 GitHub Profile](https://github.com/harshsinghps57-spec)
 
 </div>
 
@@ -30,7 +30,7 @@ Raw Data → Cleaning → EDA → SQL → Advanced Analytics → Statistical Tes
 ## 📁 Repository Structure
 
 ```
-harshsinghps57-DataAnalyst-Internship-Portfolio/
+HarshSingh-DataAnalyst-Internship-Portfolio/
 │
 ├── index.html                  # GitHub Pages portfolio website
 ├── README.md                   # This file
@@ -168,7 +168,7 @@ harshsinghps57-DataAnalyst-Internship-Portfolio/
 
 ## 🚀 How to Explore
 
-1. **Portfolio Website:** Open `index.html` or visit the [GitHub Pages site](https://harshsinghps57-spec.github.io/harshsinghps57-DataAnalyst-Internship-Portfolio)
+1. **Portfolio Website:** Open `index.html` or visit the [GitHub Pages site](https://harshsinghps57-spec.github.io/HarshSingh-DataAnalyst-Internship-Portfolio)
 2. **Final Presentation:** Open `presentation/capstone_presentation.html`
 3. **Individual Projects:** Click any repository badge above
 4. **LinkedIn Post:** Read `docs/linkedin_post.md`
