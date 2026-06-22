@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Capstone Presentation | Data Analytics Internship</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--primary:#7C3AED;--secondary:#06B6D4;--accent:#10B981;--warn:#F59E0B;--dark:#060612;--card:#11112A;--text:#E8E8F8;--muted:#8888BB;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--dark);color:var(--text);font-family:'Outfit',sans-serif;overflow:hidden;height:100vh;}
+.deck{width:100%;height:100vh;position:relative;}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:60px;opacity:0;transform:translateX(60px);transition:opacity 0.5s,transform 0.5s;pointer-events:none;text-align:center;}
+.slide.active{opacity:1;transform:translateX(0);pointer-events:all;}
+.slide.exit{opacity:0;transform:translateX(-60px);}
+
+/* Slide 1 — Title */
+.s1{background:radial-gradient(ellipse 80% 60% at 50% 30%,rgba(124,58,237,0.18) 0%,transparent 60%),var(--dark);}
+.s1 .badge{background:rgba(124,58,237,0.15);border:1px solid rgba(124,58,237,0.4);padding:8px 24px;border-radius:30px;font-size:0.85rem;letter-spacing:2px;color:#A78BFA;margin-bottom:32px;display:inline-block;}
+.s1 h1{font-size:clamp(2.5rem,6vw,5rem);font-weight:900;line-height:1.05;margin-bottom:20px;}
+.s1 h1 span{background:linear-gradient(135deg,#7C3AED,#06B6D4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.s1 .sub{font-size:1.2rem;color:var(--muted);margin-bottom:48px;}
+.pill-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+.pill{padding:8px 20px;border-radius:30px;font-size:0.82rem;font-weight:600;border:1px solid;}
+
+/* Slide 2 — Internship Journey */
+.s2{background:var(--dark);}
+.week-cards{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;width:100%;max-width:1100px;margin-top:40px;}
+.wcard{background:var(--card);border-radius:16px;padding:20px 14px;border:1px solid rgba(255,255,255,0.07);text-align:center;}
+.wcard .wnum{font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;}
+.wcard .wicon{font-size:2rem;margin-bottom:10px;display:block;}
+.wcard .wtitle{font-size:0.82rem;font-weight:700;margin-bottom:8px;line-height:1.3;}
+.wcard .wdesc{font-size:0.72rem;color:var(--muted);line-height:1.5;}
+
+/* Slide 3 — Key Findings */
+.s3{background:radial-gradient(ellipse 70% 50% at 50% 80%,rgba(16,185,129,0.06) 0%,transparent 60%),var(--dark);}
+.findings-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;width:100%;max-width:900px;margin-top:40px;text-align:left;}
+.finding{background:var(--card);border-radius:16px;padding:24px;border-left:4px solid;}
+.finding .fnum{font-size:2.5rem;font-weight:900;opacity:0.15;float:right;line-height:1;}
+.finding .ftag{font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;font-weight:700;margin-bottom:10px;display:block;}
+.finding .ftitle{font-size:1rem;font-weight:700;margin-bottom:8px;}
+.finding .fdesc{font-size:0.83rem;color:var(--muted);line-height:1.6;}
+.finding .fstat{font-family:'Fira Code',monospace;font-size:0.78rem;margin-top:10px;padding:6px 12px;border-radius:8px;display:inline-block;}
+
+/* Slide 4 — Statistical Tests */
+.s4{background:var(--dark);}
+.tests-row{display:flex;gap:20px;width:100%;max-width:1000px;margin-top:40px;}
+.test-box{background:var(--card);border-radius:16px;padding:24px;flex:1;border:1px solid rgba(255,255,255,0.07);text-align:left;}
+.test-name{font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;font-weight:600;}
+.test-h{font-size:0.82rem;margin-bottom:12px;color:var(--text);}
+.test-verdict{font-size:0.82rem;font-weight:700;padding:6px 14px;border-radius:20px;display:inline-block;margin-bottom:10px;}
+.verdict-reject{background:rgba(239,68,68,0.15);color:#EF4444;border:1px solid rgba(239,68,68,0.3);}
+.verdict-fail{background:rgba(16,185,129,0.15);color:#10B981;border:1px solid rgba(16,185,129,0.3);}
+.test-p{font-family:'Fira Code',monospace;font-size:0.75rem;color:var(--warn);}
+
+/* Slide 5 — Skills */
+.s5{background:radial-gradient(ellipse 60% 50% at 50% 0%,rgba(6,182,212,0.08) 0%,transparent 60%),var(--dark);}
+.skills-row{display:flex;gap:24px;width:100%;max-width:1000px;margin-top:40px;flex-wrap:wrap;justify-content:center;}
+.skill-group{background:var(--card);border-radius:16px;padding:24px;flex:1;min-width:200px;border:1px solid rgba(255,255,255,0.07);text-align:left;}
+.sg-title{font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;font-weight:700;}
+.sg-item{font-size:0.85rem;color:var(--muted);padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.04);display:flex;align-items:center;gap:8px;}
+.sg-item::before{content:'';width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+
+/* Slide 6 — Final / CTA */
+.s6{background:radial-gradient(ellipse 80% 80% at 50% 50%,rgba(124,58,237,0.12) 0%,rgba(6,182,212,0.06) 50%,transparent 80%),var(--dark);}
+.s6 h2{font-size:clamp(2rem,5vw,4rem);font-weight:900;margin-bottom:20px;}
+.s6 h2 span{background:linear-gradient(135deg,#7C3AED,#06B6D4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.repo-links{display:flex;flex-direction:column;gap:12px;width:100%;max-width:600px;margin:32px auto;}
+.repo-link{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:14px 20px;text-decoration:none;color:var(--text);transition:border-color 0.2s,transform 0.2s;}
+.repo-link:hover{border-color:rgba(124,58,237,0.5);transform:translateX(4px);}
+.repo-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.repo-week{font-size:0.72rem;color:var(--muted);margin-left:auto;}
+
+/* Navigation */
+.nav-bar{position:fixed;bottom:32px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:20px;background:rgba(17,17,42,0.9);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.08);border-radius:50px;padding:12px 28px;z-index:100;}
+.slide-counter{font-size:0.82rem;color:var(--muted);font-family:'Fira Code',monospace;min-width:50px;text-align:center;}
+.nav-btn{background:rgba(124,58,237,0.15);border:1px solid rgba(124,58,237,0.3);color:var(--text);width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:1rem;transition:all 0.2s;display:flex;align-items:center;justify-content:center;}
+.nav-btn:hover{background:rgba(124,58,237,0.35);}
+.dots{display:flex;gap:8px;}
+.dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.15);cursor:pointer;transition:all 0.2s;}
+.dot.active{background:var(--primary);width:24px;border-radius:4px;}
+.slide-title-bar{position:fixed;top:24px;left:50%;transform:translateX(-50%);background:rgba(17,17,42,0.8);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.06);border-radius:30px;padding:8px 24px;font-size:0.78rem;color:var(--muted);}
+</style>
+</head>
+<body>
+
+<div class="slide-title-bar">Data Analytics Internship — Capstone Presentation · ApexPlanet Software Pvt. Ltd.</div>
+
+<div class="deck" id="deck">
+
+  <!-- SLIDE 1: TITLE -->
+  <div class="slide s1 active" id="slide-1">
+    <div class="badge">WEEK 5 — CAPSTONE PRESENTATION</div>
+    <h1>Data Analytics<br><span>Internship</span><br>Portfolio</h1>
+    <div class="sub">Harsh Singh · ApexPlanet Software Pvt. Ltd. · 5 Weeks</div>
+    <div class="pill-row">
+      <span class="pill" style="background:rgba(124,58,237,0.1);color:#A78BFA;border-color:rgba(124,58,237,0.3);">Python</span>
+      <span class="pill" style="background:rgba(6,182,212,0.1);color:#06B6D4;border-color:rgba(6,182,212,0.3);">SQL</span>
+      <span class="pill" style="background:rgba(16,185,129,0.1);color:#10B981;border-color:rgba(16,185,129,0.3);">EDA</span>
+      <span class="pill" style="background:rgba(245,158,11,0.1);color:#F59E0B;border-color:rgba(245,158,11,0.3);">Statistics</span>
+      <span class="pill" style="background:rgba(239,68,68,0.1);color:#EF4444;border-color:rgba(239,68,68,0.3);">Storytelling</span>
+      <span class="pill" style="background:rgba(124,58,237,0.1);color:#A78BFA;border-color:rgba(124,58,237,0.3);">Dashboard</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 2: JOURNEY -->
+  <div class="slide s2" id="slide-2">
+    <div class="section-label" style="font-size:0.72rem;letter-spacing:3px;text-transform:uppercase;color:#A78BFA;margin-bottom:10px;">The Journey</div>
+    <h2 style="font-size:2.8rem;font-weight:900;">5 Weeks · 5 Milestones</h2>
+    <div class="week-cards">
+      <div class="wcard">
+        <div class="wnum" style="color:#A78BFA">Week 1</div>
+        <span class="wicon">🧹</span>
+        <div class="wtitle">Data Wrangling</div>
+        <div class="wdesc">Cleaned 9,994 rows. Fixed nulls, types, duplicates. Feature engineering.</div>
+      </div>
+      <div class="wcard">
+        <div class="wnum" style="color:#06B6D4">Week 2</div>
+        <span class="wicon">📊</span>
+        <div class="wtitle">EDA & BI</div>
+        <div class="wdesc">SQL queries, statistical distributions, interactive BI dashboard.</div>
+      </div>
+      <div class="wcard">
+        <div class="wnum" style="color:#10B981">Week 3</div>
+        <span class="wicon">🎛️</span>
+        <div class="wtitle">Deep Dive</div>
+        <div class="wdesc">RFM segmentation, cohort analysis, time-series, multi-page dashboard.</div>
+      </div>
+      <div class="wcard">
+        <div class="wnum" style="color:#F59E0B">Week 4</div>
+        <span class="wicon">📈</span>
+        <div class="wtitle">Storytelling</div>
+        <div class="wdesc">5 data stories, 4 hypothesis tests, Pearson correlations.</div>
+      </div>
+      <div class="wcard" style="border-color:rgba(124,58,237,0.4);background:rgba(124,58,237,0.07);">
+        <div class="wnum" style="color:#A78BFA">Week 5</div>
+        <span class="wicon">⭐</span>
+        <div class="wtitle">Capstone</div>
+        <div class="wdesc">Master portfolio, GitHub Pages, LinkedIn post, professional reflection.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 3: KEY FINDINGS -->
+  <div class="slide s3" id="slide-3">
+    <div class="section-label" style="font-size:0.72rem;letter-spacing:3px;text-transform:uppercase;color:#10B981;margin-bottom:10px;">Business Intelligence</div>
+    <h2 style="font-size:2.8rem;font-weight:900;">Key Findings</h2>
+    <div class="findings-grid">
+      <div class="finding" style="border-color:#EF4444;">
+        <span class="fnum">01</span>
+        <span class="ftag" style="color:#EF4444;">Discount Impact</span>
+        <div class="ftitle">The Discount Trap</div>
+        <div class="fdesc">Discounts above 40% consistently produce negative profit. Higher discounts attract more orders but destroy margins.</div>
+        <div class="fstat" style="background:rgba(239,68,68,0.1);color:#EF4444;">r = -0.22 (Pearson, p &lt; 0.001)</div>
+      </div>
+      <div class="finding" style="border-color:#7C3AED;">
+        <span class="fnum">02</span>
+        <span class="ftag" style="color:#7C3AED;">Category Analysis</span>
+        <div class="ftitle">Technology Dominates</div>
+        <div class="fdesc">Technology generates ~50% of total profit at only 36% of revenue. Copiers and Phones are the most profitable sub-categories.</div>
+        <div class="fstat" style="background:rgba(124,58,237,0.1);color:#A78BFA;">Furniture Tables = net loss</div>
+      </div>
+      <div class="finding" style="border-color:#06B6D4;">
+        <span class="fnum">03</span>
+        <span class="ftag" style="color:#06B6D4;">Regional Analysis</span>
+        <div class="ftitle">West vs Central Gap</div>
+        <div class="fdesc">West region leads all metrics. Central region has the lowest profit margins, suggesting operational inefficiency or pricing issues.</div>
+        <div class="fstat" style="background:rgba(6,182,212,0.1);color:#06B6D4;">Chi-sq: p = 0.005 (Ship Mode)</div>
+      </div>
+      <div class="finding" style="border-color:#10B981;">
+        <span class="fnum">04</span>
+        <span class="ftag" style="color:#10B981;">Customer Behaviour</span>
+        <div class="ftitle">Retention Drops Fast</div>
+        <div class="fdesc">RFM cohort analysis reveals that customer retention drops sharply after Month 1. Re-engagement strategies are critical for long-term revenue.</div>
+        <div class="fstat" style="background:rgba(16,185,129,0.1);color:#10B981;">RFM: Champions identified</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 4: STATISTICAL TESTS -->
+  <div class="slide s4" id="slide-4">
+    <div class="section-label" style="font-size:0.72rem;letter-spacing:3px;text-transform:uppercase;color:#F59E0B;margin-bottom:10px;">Statistical Validation</div>
+    <h2 style="font-size:2.8rem;font-weight:900;">Hypothesis Testing Results</h2>
+    <div class="tests-row">
+      <div class="test-box">
+        <div class="test-name">Shapiro-Wilk Test</div>
+        <div class="test-h">H₀: Profit is normally distributed</div>
+        <div class="test-verdict verdict-reject">Reject H₀</div>
+        <div class="test-p">W = 0.2492 | p &lt; 0.001</div>
+        <div style="font-size:0.78rem;color:var(--muted);margin-top:8px;">Profit has heavy skew — use non-parametric methods</div>
+      </div>
+      <div class="test-box">
+        <div class="test-name">Independent T-Test</div>
+        <div class="test-h">H₀: Consumer = Corporate profit margin</div>
+        <div class="test-verdict verdict-fail">Fail to Reject H₀</div>
+        <div class="test-p">t = -0.846 | p = 0.397</div>
+        <div style="font-size:0.78rem;color:var(--muted);margin-top:8px;">No significant margin difference between segments</div>
+      </div>
+      <div class="test-box">
+        <div class="test-name">One-Way ANOVA</div>
+        <div class="test-h">H₀: Sales equal across all regions</div>
+        <div class="test-verdict verdict-fail">Fail to Reject H₀</div>
+        <div class="test-p">F = 0.801 | p = 0.493</div>
+        <div style="font-size:0.78rem;color:var(--muted);margin-top:8px;">Sales volumes not statistically different by region</div>
+      </div>
+      <div class="test-box">
+        <div class="test-name">Chi-Square Test</div>
+        <div class="test-h">H₀: Ship Mode independent of Region</div>
+        <div class="test-verdict verdict-reject">Reject H₀</div>
+        <div class="test-p">χ² = 23.85 | p = 0.005</div>
+        <div style="font-size:0.78rem;color:var(--muted);margin-top:8px;">Shipping preferences depend on the region</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 5: SKILLS -->
+  <div class="slide s5" id="slide-5">
+    <div class="section-label" style="font-size:0.72rem;letter-spacing:3px;text-transform:uppercase;color:#06B6D4;margin-bottom:10px;">Technical Growth</div>
+    <h2 style="font-size:2.8rem;font-weight:900;">Skills Demonstrated</h2>
+    <div class="skills-row">
+      <div class="skill-group">
+        <div class="sg-title" style="color:#A78BFA">Python & Data</div>
+        <div class="sg-item" style="--c:#A78BFA"><span style="width:6px;height:6px;border-radius:50%;background:#A78BFA;flex-shrink:0;display:inline-block"></span>Pandas & NumPy</div>
+        <div class="sg-item"><span style="width:6px;height:6px;border-radius:50%;background:#A78BFA;flex-shrink:0;display:inline-block"></span>SciPy (Stats)</div>
+        <div class="sg-item"><span style="width:6px;height:6px;border-radius:50%;background:#A78BFA;flex-shrink:0;display:inline-block"></span>Data Cleaning</div>
+        <div class="sg-item"><span style="width:6px;height:6px;border-radius:50%;background:#A78BFA;flex-shrink:0;display:inline-block"></span>Feature Engineering</div>
+      </div>
+      <div class="skill-group">
+        <div class="sg-title" style="color:#06B6D4">Visualization</div>
+        <div class="sg-item"><span style="width:6px;height:6px;border-radius:50%;background:#06B6D4;flex-shrink:0;display:inline-block"></span>Matplotlib & Seaborn</div>
+        <div class="sg-item"><span style="width:6px;height:6px;border-radius:50%;background:#06B6D4;flex-shrink:0;display:inline-block"></span>HTML/CSS Dashboards</div>
+        <div class="sg-item"><span style="width:6px;height:6px;border-radius:50%;background:#06B6D4;flex-shrink:0;display:inline-block"></span>JavaScript Charts</div>
+        <div class="sg-item"><span style="width:6px;height:6px;border-radius:50%;background:#06B6D4;flex-shrink:0;display:inline-block"></span>Data Storytelling</div>
+      </div>
+      <div class="skill-group">
+        <div class="sg-title" style="color:#10B981">Analytics</div>
+        <div class="sg-item"><span style="width:6px;height:6px;border-radius:50%;background:#10B981;flex-shrink:0;display:inline-block"></span>EDA & SQL</div>
+        <div class="sg-item"><span style="width:6px;height:6px;border-radius:50%;background:#10B981;flex-shrink:0;display:inline-block"></span>RFM Segmentation</div>
+        <div class="sg-item"><span style="width:6px;height:6px;border-radius:50%;background:#10B981;flex-shrink:0;display:inline-block"></span>Cohort Analysis</div>
+        <div class="sg-item"><span style="width:6px;height:6px;border-radius:50%;background:#10B981;flex-shrink:0;display:inline-block"></span>Hypothesis Testing</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 6: FINAL -->
+  <div class="slide s6" id="slide-6">
+    <h2>Thank You<br><span>for the Opportunity</span></h2>
+    <p style="color:var(--muted);font-size:1.05rem;margin-bottom:8px;">All repositories are live on GitHub. Open the portfolio website for the full visual experience.</p>
+    <div class="repo-links">
+      <a href="https://github.com/harshsinghps57-spec/Data-Immersion-Wrangling" class="repo-link" target="_blank">
+        <span class="repo-dot" style="background:#7C3AED"></span>
+        <span>Data Immersion & Wrangling</span>
+        <span class="repo-week">Week 1</span>
+      </a>
+      <a href="https://github.com/harshsinghps57-spec/Exploratory-Data-Analysis-and-Business-Intelligence" class="repo-link" target="_blank">
+        <span class="repo-dot" style="background:#06B6D4"></span>
+        <span>EDA & Business Intelligence</span>
+        <span class="repo-week">Week 2</span>
+      </a>
+      <a href="https://github.com/harshsinghps57-spec/Deep-Dive-Analysis-Interactive-Dashboard" class="repo-link" target="_blank">
+        <span class="repo-dot" style="background:#10B981"></span>
+        <span>Deep Dive & Interactive Dashboard</span>
+        <span class="repo-week">Week 3</span>
+      </a>
+      <a href="https://github.com/harshsinghps57-spec/Data-Storytelling-and-Statistical-Validation" class="repo-link" target="_blank">
+        <span class="repo-dot" style="background:#F59E0B"></span>
+        <span>Data Storytelling & Statistical Validation</span>
+        <span class="repo-week">Week 4</span>
+      </a>
+      <a href="https://github.com/harshsinghps57-spec/harshsinghps57-DataAnalyst-Internship-Portfolio" class="repo-link" target="_blank" style="border-color:rgba(124,58,237,0.5);">
+        <span class="repo-dot" style="background:linear-gradient(135deg,#7C3AED,#06B6D4)"></span>
+        <strong>Master Portfolio Repository</strong>
+        <span class="repo-week">Week 5</span>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<!-- NAVIGATION -->
+<div class="nav-bar">
+  <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">&#8592;</button>
+  <div class="dots" id="dotsContainer"></div>
+  <div class="slide-counter" id="counter">1 / 6</div>
+  <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">&#8594;</button>
+</div>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+const dotsC = document.getElementById('dotsContainer');
+let current = 0;
+
+slides.forEach((_,i) => {
+  const d = document.createElement('div');
+  d.className = 'dot' + (i===0 ? ' active' : '');
+  d.onclick = () => goTo(i);
+  dotsC.appendChild(d);
+});
+
+function goTo(n) {
+  slides[current].classList.remove('active');
+  slides[current].classList.add('exit');
+  setTimeout(() => slides[current].classList.remove('exit'), 500);
+  current = (n + slides.length) % slides.length;
+  slides[current].classList.add('active');
+  document.querySelectorAll('.dot').forEach((d,i) => d.classList.toggle('active', i===current));
+  document.getElementById('counter').textContent = (current+1) + ' / ' + slides.length;
+}
+
+function changeSlide(dir) { goTo(current + dir); }
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') changeSlide(1);
+  if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') changeSlide(-1);
+});
+</script>
+</body>
+</html>
